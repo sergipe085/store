@@ -4,5 +4,9 @@
     {% for book in books %}
         <h2>{{ book.name }}</h2>
         <h3>{{ book.amount }}</h3>
+        <form action="/remove", method="POST">
+            <input name="name" value="{{ book.name }}" type="hidden">
+            <input type="submit" value="remove">
+        </form>
     {% endfor %}
 {% endblock %}

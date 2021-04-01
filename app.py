@@ -40,6 +40,20 @@ def cart():
 
     return render_template('cart.html', books=books)
 
+@app.route('/remove', methods=["POST"])
+def remove():
+    name = request.form.get('name')
+    id = db.execute("SELECT id FROM books WHERE name = (?)", name)[0]['id']
+    for i in session['cart']:
+        if i['id'] == str(id):
+            print(i['id'])
+            if i['amount'] > 1:
+                i['amount'] -= 1
+            else:
+                session['cart'].remove(i)    
+                
+    return redirect('/cart')
+
 def add(id):
     for a in session['cart']:
         if a['id'] and a['amount'] and a['id'] == id:
