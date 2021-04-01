@@ -29,4 +29,5 @@ def cart():
         session['cart'].append(id)
 
     #GET
-    return render_template('cart.html')    
+    books = db.execute("SELECT * FROM books WHERE id IN (?)", session['cart'])
+    return render_template('cart.html', books=books)    

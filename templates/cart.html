@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% for id in session.cart %}
+        <a>{{ id }}</a>
+    {% endfor %}
+{% endblock %}
