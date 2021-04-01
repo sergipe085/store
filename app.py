@@ -8,3 +8,11 @@ app = Flask(__name__)
 #configure app
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = False
+
+#connect to db
+db = SQL('sqlite:///store.db')
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
