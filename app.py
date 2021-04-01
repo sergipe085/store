@@ -8,6 +8,7 @@ app = Flask(__name__)
 #configure app
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = False
+Session(app)
 
 #connect to db
 db = SQL('sqlite:///store.db')
@@ -17,3 +18,15 @@ def index():
     books = db.execute("SELECT * FROM books")
     return render_template('index.html', books=books)
 
+@app.route('/cart', methods=["GET", "POST"])
+def cart():
+    if "cart" not in session:
+        session['cart'] = []
+
+    #POST
+    if request.method == 'POST':
+        id = request.form.get('id')
+        session['cart'].append(id)
+
+    #GET
+    return render_template('cart.html')    
