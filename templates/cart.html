@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    {% for id in session.cart %}
-        <a>{{ id }}</a>
+    {% for book in books %}
+        <h2>{{ book.name }}</h2>
     {% endfor %}
 {% endblock %}
