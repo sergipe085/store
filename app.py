@@ -37,8 +37,7 @@ def cart():
             "name": book[0]['name'],
             "amount": i['amount']
         })
-
-    return render_template('cart.html', books=books)
+    return render_template('cart.html', books=books, clear=len(books)==0)
 
 @app.route('/remove', methods=["POST"])
 def remove():
@@ -51,7 +50,7 @@ def remove():
                 i['amount'] -= 1
             else:
                 session['cart'].remove(i)    
-                
+
     return redirect('/cart')
 
 def add(id):
