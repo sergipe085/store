@@ -14,5 +14,6 @@ db = SQL('sqlite:///store.db')
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    books = db.execute("SELECT * FROM books")
+    return render_template('index.html', books=books)
 
