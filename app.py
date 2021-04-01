@@ -26,8 +26,26 @@ def cart():
     #POST
     if request.method == 'POST':
         id = request.form.get('id')
-        session['cart'].append(id)
+
+        add(id)
 
     #GET
-    books = db.execute("SELECT * FROM books WHERE id IN (?)", session['cart'])
-    return render_template('cart.html', books=books)    
+    books = []
+    for i in session['cart']:
+        book = db.execute("SELECT * FROM books WHERE id = (?)", i['id'])
+        books.append({
+            "name": book[0]['name'],
+            "amount": i['amount']
+        })
+
+    return render_template('cart.html', books=books)
+
+def add(id):
+    for a in session['cart']:
+        if a['id'] and a['amount'] and a['id'] == id:
+            a['amount'] += 1
+            return
+    session['cart'].append({
+        "id": id,
+        "amount": 1
+    })
